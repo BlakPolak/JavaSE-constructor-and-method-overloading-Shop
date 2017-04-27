@@ -1,4 +1,4 @@
 package frompythontojava.onlineshop;
 
-public class FeaturedProductCategory {
+public class FeaturedProductCategory extends ProductCategory {
 }
