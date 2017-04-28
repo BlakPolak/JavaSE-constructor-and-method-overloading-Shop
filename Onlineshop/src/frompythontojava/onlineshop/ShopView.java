@@ -9,6 +9,11 @@ public class ShopView {
     private String ANSI_CYAN;
 
     public ShopView(){
+        this.ANSI_GREEN = "\u001B[32m";
+        this.ANSI_RED = "\u001B[31m";
+        this.ANSI_RESET = "\u001B[0m";
+        this.ANSI_CYAN = "\u001B[36m";
+        this.ANSI_PURPLE ="\u001B[35m";
     }
 
     public void welcomeText(){

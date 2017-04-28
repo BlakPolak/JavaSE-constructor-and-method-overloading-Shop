@@ -93,11 +93,25 @@ public class Main {
             String supplierName = take.inputText();
             show.text("Type supplier description");
             String supplierDescription = take.inputText();
-            Supplier newSupplier = new Supplier(supplierName,supplierDescription);
-
+            Supplier supplier = new Supplier(supplierName,supplierDescription);
+        Product product = new Product(name, defaultPrice, category, supplier);
+        Product.addToList(product);
+        show.text(product.getName() + " added to list.");
     }
 
     private static void addProductsToBasket(ShopView show, ShopController take) {
+        show.text("Add product to Basket\n");
+        if (Product.productList.size() > 0) {
+            Product.getProducts();
+            show.text("\nChoose number of product you want to add to basket\n");
+            Integer id = take.inputInteger();
+            Product productToBasket = Product.getProductById(id);
+            Basket.addProduct(productToBasket);
+            show.text(productToBasket.getName() + " added to basket!");
+
+        } else {
+            show.text("\n There are no products in the shop");
+        }
     }
 
     private static void seeAllProductsInBasket(ShopView show, ShopController take) {

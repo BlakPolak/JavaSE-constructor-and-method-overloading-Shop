@@ -12,16 +12,11 @@ public class Product {
     private Float defaultPrice;
     private ProductCategory productCategory;
     private Supplier supplier;
-    private ArrayList<Product> productList;
+    static ArrayList<Product> productList = new ArrayList<>();
 
     public Product() {
-        this.id = rand.nextInt(200) + 1;
-        this.name = "Product";
-        this.defaultPrice = 1f;
-        this.productCategory = new ProductCategory();
-        this.supplier = new Supplier();
-
     }
+
     public Product(String name, Float defaultPrice, ProductCategory productCategory, Supplier supplier) {
         this.id = rand.nextInt(200) + 1;
         this.name = name;
@@ -29,15 +24,36 @@ public class Product {
         this.productCategory = productCategory;
         this.supplier = supplier;
 
+
     }
 
 
-    public void addProductToList(Product newProduct){
+    public static void addToList(Product newProduct){
         productList.add(newProduct);
     }
 
 
-//    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Float getDefaultPrice() {
+        return defaultPrice;
+    }
+
+    public static Product getProductById(Integer id) {
+        for (int i = 0; i < productList.size(); i++)
+            if (productList.get(i).getId() == id) {
+                return productList.get(i);
+            }
+        return null;
+    }
+
+    //    @Override
 //    public String toString() {
 //        final StringBuilder sb = new StringBuilder();
 //        for (Field field : this.getClass().getDeclaredFields()) {
@@ -55,15 +71,23 @@ public class Product {
 //        return sb.toString();
 //    }
 
-    public ArrayList getProducts(){
+    public static ArrayList getProducts(){
+        if (productList.size() > 0) {
+            for (int i = 0; i < productList.size(); i++)
+                System.out.println(productList.get(i).getId() + ". "
+                        + productList.get(i).getName() + " price: "
+                        + productList.get(i).getDefaultPrice());
+        } else {
+            System.out.println("There are no product in the shop");
+        }
         return productList;
     }
 
-    public ArrayList getAllProductsBy(ProductCategory productCategory){
+    public static ArrayList getAllProductsBy(ProductCategory productCategory){
         return null; //TODO:Implementation
     }
 
-    public ArrayList getAllProductsBy(Supplier productSupplier){
+    public static ArrayList getAllProductsBy(Supplier productSupplier){
         return null; //TODO:Implementation
     }
 
