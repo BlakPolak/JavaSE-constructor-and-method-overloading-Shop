@@ -1,19 +1,26 @@
 package frompythontojava.onlineshop;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Supplier {
-    private Random rand = new Random();
     private Integer id;
     private String name;
     private String description;
+    private ArrayList<Supplier> suppliersList = new ArrayList<>();
+    private  ArrayList<Product> productsList = new ArrayList<>();
+    private static AtomicInteger number = new AtomicInteger(0);
 
     public Supplier() {
     }
     public Supplier(String name, String description) {
-        this.id = rand.nextInt(200) + 1;
+        this.id = number.getAndIncrement();
         this.name = name;
         this.description = description;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
@@ -30,6 +37,23 @@ public class Supplier {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public Supplier getSupplierById(int id) {
+        if (suppliersList.size() > 0) {
+            for (int i = 0; i < suppliersList.size(); i++)
+                if (suppliersList.get(i).getId() == id) {
+                    return suppliersList.get(i);
+                }
+        }
+        return null;
+    }
+    public void createNewSupplier(Supplier supplier) {
+        suppliersList.add(supplier);
+    }
+
+    public String toString() {
+        return String.format("id: %1$d," + "name: %2$s, " + "description: %3$s",
+                this.id, this.name, this.description);
     }
 }
 

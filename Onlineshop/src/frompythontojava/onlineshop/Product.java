@@ -2,8 +2,10 @@ package frompythontojava.onlineshop;
 
 import com.sun.xml.internal.bind.v2.TODO;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Product {
     private Random rand = new Random();
@@ -13,12 +15,13 @@ public class Product {
     private ProductCategory productCategory;
     private Supplier supplier;
     static ArrayList<Product> productList = new ArrayList<>();
+    private static AtomicInteger number = new AtomicInteger(0);
 
     public Product() {
     }
 
     public Product(String name, Float defaultPrice, ProductCategory productCategory, Supplier supplier) {
-        this.id = rand.nextInt(200) + 1;
+        this.id = number.getAndIncrement();
         this.name = name;
         this.defaultPrice = defaultPrice;
         this.productCategory = productCategory;
@@ -45,14 +48,21 @@ public class Product {
         return defaultPrice;
     }
 
-    public static Product getProductById(Integer id) {
-        for (int i = 0; i < productList.size(); i++)
-            if (productList.get(i).getId() == id) {
-                return productList.get(i);
-            }
-        return null;
+    public String getCategoryName() {
+        return this.productCategory.getCategoryName();
     }
 
+    public static Product getProductById(Integer id) {
+        Iterator productIterator = new ProductIterator();
+        Iterator iterator = productIterator.getIterator();
+        while(iterator.hasNext(productList)) {
+            Product product = (Product) iterator.next(productList);
+            if (Objects.equals(product.getId(), id)) {
+                return product;
+            }
+        }
+        return null;
+    }
     //    @Override
 //    public String toString() {
 //        final StringBuilder sb = new StringBuilder();
@@ -73,10 +83,14 @@ public class Product {
 
     public static ArrayList getProducts(){
         if (productList.size() > 0) {
-            for (int i = 0; i < productList.size(); i++)
-                System.out.println(productList.get(i).getId() + ". "
-                        + productList.get(i).getName() + " price: "
-                        + productList.get(i).getDefaultPrice());
+            Iterator productIterator = new ProductIterator();
+            Iterator iterator = productIterator.getIterator();
+            while(iterator.hasNext(productList)) {
+                Product product = (Product) iterator.next(productList);
+                System.out.println(product.getId() + ". "
+                        + product.getName() + " price: "
+                        + product.getDefaultPrice());
+            }
         } else {
             System.out.println("There are no product in the shop");
         }
@@ -101,7 +115,7 @@ public class Product {
                 this.id,
                 this.name,
                 this.defaultPrice,
-                this.productCategory.getName(),
+                this.productCategory.getCategoryName(),
                 this.supplier.getName());
     }
 }
