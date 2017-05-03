@@ -1,7 +1,5 @@
 package frompythontojava.onlineshop;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.util.Objects;
 import java.util.Random;
 import java.util.ArrayList;
@@ -26,15 +24,11 @@ public class Product {
         this.defaultPrice = defaultPrice;
         this.productCategory = productCategory;
         this.supplier = supplier;
-
-
     }
-
 
     public static void addToList(Product newProduct){
         productList.add(newProduct);
     }
-
 
     public Integer getId() {
         return id;
@@ -55,7 +49,7 @@ public class Product {
     public static Product getProductById(Integer id) {
         Iterator productIterator = new ProductIterator();
         Iterator iterator = productIterator.getIterator();
-        while(iterator.hasNext(productList)) {
+        while (iterator.hasNext(productList)) {
             Product product = (Product) iterator.next(productList);
             if (Objects.equals(product.getId(), id)) {
                 return product;
@@ -72,7 +66,7 @@ public class Product {
         if (productList.size() > 0) {
             Iterator productIterator = new ProductIterator();
             Iterator iterator = productIterator.getIterator();
-            while(iterator.hasNext(productList)) {
+            while (iterator.hasNext(productList)) {
                 Product product = (Product) iterator.next(productList);
                 System.out.println(product.getId() + ". "
                         + product.getName() + " price: "
@@ -83,27 +77,6 @@ public class Product {
         }
         return productList;
     }
-
-//    public static ArrayList getAllProductsBy(ProductCategory productCategory){
-//        return null; //TODO:Implementation
-//    }
-//
-//    public static ArrayList getAllProductsBy(Supplier productSupplier){
-//        if (productList.size() > 0) {
-//            Iterator productIterator = new ProductIterator();
-//            Iterator iterator = productIterator.getIterator();
-//            while(iterator.hasNext(productList)) {
-//                Product product = (Product) iterator.next(productList);
-//                System.out.println("Product idL" + product.getId() + ". Supplier name:"
-//                        + product.getSupplier().getName() + " price: "
-//                        + product.getDefaultPrice());
-//            }
-//        } else {
-//            System.out.println("There are no product in the shop");
-//        }
-//        return productList;
-//    }
-//    }
 
     public String toString() {
         return String.format("id: %1$d, " +
@@ -119,70 +92,3 @@ public class Product {
                 this.supplier.getName());
     }
 }
-
-
-
-//package com.codecool.shop.model;
-//
-//        import java.util.Currency;
-//
-//public class Product extends BaseModel {
-//
-//    private float defaultPrice;
-//    private Currency defaultCurrency;
-//    private ProductCategory productCategory;
-//    private Supplier supplier;
-//
-//
-//    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
-//        super(name, description);
-//        this.setPrice(defaultPrice, currencyString);
-//        this.setSupplier(supplier);
-//        this.setProductCategory(productCategory);
-//    }
-//
-//    public float getDefaultPrice() {
-//        return defaultPrice;
-//    }
-//
-//    public void setDefaultPrice(float defaultPrice) {
-//        this.defaultPrice = defaultPrice;
-//    }
-//
-//    public Currency getDefaultCurrency() {
-//        return defaultCurrency;
-//    }
-//
-//    public void setDefaultCurrency(Currency defaultCurrency) {
-//        this.defaultCurrency = defaultCurrency;
-//    }
-//
-//    public String getPrice() {
-//        return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
-//    }
-//
-//    public void setPrice(float price, String currency) {
-//        this.defaultPrice = price;
-//        this.defaultCurrency = Currency.getInstance(currency);
-//    }
-//
-//    public ProductCategory getProductCategory() {
-//        return productCategory;
-//    }
-//
-//    public void setProductCategory(ProductCategory productCategory) {
-//        this.productCategory = productCategory;
-//        this.productCategory.addProduct(this);
-//    }
-//
-//    public Supplier getSupplier() {
-//        return supplier;
-//    }
-//
-//    public void setSupplier(Supplier supplier) {
-//        this.supplier = supplier;
-//        this.supplier.addProduct(this);
-//    }
-//
-
-//}

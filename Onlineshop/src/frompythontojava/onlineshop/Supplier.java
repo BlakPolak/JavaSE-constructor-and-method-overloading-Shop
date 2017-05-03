@@ -15,6 +15,7 @@ public class Supplier {
 
     public Supplier() {
     }
+
     public Supplier(String name, String description, ArrayList productsList) {
         this.id = number.getAndIncrement();
         this.name = name;
@@ -34,25 +35,25 @@ public class Supplier {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
+
     public static Supplier getSupplierById(Integer id) {
         if (suppliersList.size() > 0) {
-            for (int i = 0; i < suppliersList.size(); i++)
+            for (int i = 0; i < suppliersList.size(); i++) {
                 if (Objects.equals(suppliersList.get(i).getId(), id)) {
                     return suppliersList.get(i);
                 }
+            }
         }
         return null;
     }
+
     public static void createNewSupplier(Supplier supplier) {
         suppliersList.add(supplier);
     }
+
     public void addProductToSupplier(Product product) {
         this.productsList.add(product);
         Supplier.productsWithSuppliers.add(product);
@@ -78,43 +79,4 @@ public class Supplier {
             show.text("There are no products from this suppliers.");
         }
     }
-
 }
-
-
-
-//package com.codecool.shop.model;
-//
-//        import java.util.ArrayList;
-//
-//
-//public class Supplier extends BaseModel {
-//    private ArrayList<Product> products;
-//
-//    public Supplier(String name, String description) {
-//        super(name);
-//        this.products = new ArrayList<>();
-//    }
-//
-//    public void setProducts(ArrayList<Product> products) {
-//        this.products = products;
-//    }
-//
-//    public ArrayList getProducts() {
-//        return this.products;
-//    }
-//
-//    public void addProduct(Product product) {
-//        this.products.add(product);
-//    }
-//
-//    public String toString() {
-//        return String.format("id: %1$d, " +
-//                        "name: %2$s, " +
-//                        "description: %3$s",
-//                this.id,
-//                this.name,
-//                this.description
-//        );
-//    }
-//}

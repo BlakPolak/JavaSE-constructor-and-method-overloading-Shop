@@ -27,32 +27,13 @@ public class ProductCategory  {
         return id;
     }
 
-
     public String getCategoryName() {
         return name;
-    }
-
-    public void setCategoryName(String name){
-        this.name = name;
-    }
-
-    public String getCategoryDepartment() {
-        return department;
-    }
-
-    public void setCategoryDepartment(String department) {
-        this.department = department;
     }
 
     public String getCategoryDescription() {
         return description;
     }
-
-    public void setCategoryDescription(String description) {
-        this.description = description;
-    }
-
-
 
     public void addProductToCategory(Product product) {
         this.productList.add(product);
@@ -60,7 +41,6 @@ public class ProductCategory  {
 
     public static void getProductCategories() {
         if (categories.size() > 0) {
-//            System.out.println("Categories list: ");
             for (int i = 0; i < categories.size(); i++) {
                 if (ProductCategory.categories.get(i).getClass() == new ProductCategory().getClass()) {
                     System.out.println(categories.get(i).getCategoryId() + ". " + categories.get(i).getCategoryName() +"\n");
@@ -68,15 +48,15 @@ public class ProductCategory  {
             }
         }
     }
+
     public static void addCategoryToList(ProductCategory category) {
         categories.add(category);
     }
 
-
     public static ProductCategory getProductCategoryById(Integer id) {
         Iterator productIterator = new ProductIterator();
         Iterator iterator = productIterator.getIterator();
-        while(iterator.hasNext(categories)) {
+        while (iterator.hasNext(categories)) {
             ProductCategory category = (ProductCategory) iterator.next(categories);
             if (Objects.equals(category.getCategoryId(), id)) {
                 return category;
@@ -84,6 +64,7 @@ public class ProductCategory  {
         }
         return null;
     }
+
     public static boolean isThereAnyProductCategory() {
         if (ProductCategory.categories.size() > 0) {
             for (int i = 0; i < categories.size(); i++) {
@@ -107,8 +88,13 @@ public class ProductCategory  {
     }
 
     public static void getProductsFromCategory(ProductCategory productCategory, ShopView show) {
-        for (int i = 0; i < productCategory.productList.size(); i++)
-            show.text("Product name: " + productCategory.productList.get(i).getName());
+        if (productCategory.productList.size()> 0){
+            for (int i = 0; i < productCategory.productList.size(); i++)
+                show.text("Product name: " + productCategory.productList.get(i).getName());
+        } else {
+            show.text("There are no products for this category");
+        }
+
     }
 
     public String toString() {

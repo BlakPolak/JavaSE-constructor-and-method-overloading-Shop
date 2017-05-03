@@ -5,7 +5,6 @@ public class ProductIterator implements Iterator {
     private Integer index = 0;
 
     public ProductIterator(){
-
     }
 
     @Override
@@ -15,7 +14,7 @@ public class ProductIterator implements Iterator {
 
     @Override
     public boolean hasNext(ArrayList list) {
-        if(index < list.size() && list.get(index) != null){
+        if (index < list.size() && list.get(index) != null){
             return true;
         }
         return false;
@@ -25,5 +24,4 @@ public class ProductIterator implements Iterator {
     public Object next(ArrayList list) {
         return list.get(index++);
     }
-
 }

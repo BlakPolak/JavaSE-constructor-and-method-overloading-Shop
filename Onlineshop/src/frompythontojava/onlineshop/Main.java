@@ -1,6 +1,5 @@
 package frompythontojava.onlineshop;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -12,72 +11,68 @@ public class Main {
         ShopView show = new ShopView();
         show.welcomeText();
         showOptions(show);
-        }
-
-
-//        Product newProduct = new Product(String name, Float price, ProductCategory category, Supplier supplier);
-
-    public static void showOptions(ShopView show){
+    }
+    
+    public static void showOptions(ShopView show) {
         show.options();
         chooseOptions(show);
-
-
     }
-    public static void chooseOptions(ShopView show){
+
+    public static void chooseOptions(ShopView show) {
         boolean noInput = true;
         while (noInput) {
-            try {
-                ShopController take = new ShopController();
-                Integer option = take.inputInteger();
-                switch (option) {
-                    case 1:
-                        createNewProduct(show, take);
-                        showOptions(show);
-                    case 2:
-                        addProductsToBasket(show, take);
-                        showOptions(show);
-                    case 3:
-                        seeAllProductsInBasket(show);
-                        showOptions(show);
-                    case 4:
-                        removeProductFromBasket(show, take);
-                        showOptions(show);
-                    case 5:
-                        changeSupplierForSpecificProduct(show, take);
-                        showOptions(show);
-                    case 6:
-                        ListOfAvailableProducts(show, take);
-                        showOptions(show);
-                    case 7:
-                        listOfProductsFromSpecificSupplier(show, take);
-                        showOptions(show);
-                    case 8:
-                        listOfProductsFromSpecificProductCategory(show, take);
-                        showOptions(show);
-                    case 9:
-                        createNewSupplier(show, take);
-                        showOptions(show);
-                    case 10:
-                        createNewProductCategoryOrNewFeaturedProductCategory(show, take);
-                        showOptions(show);
-                    case 11:
-                        checkAvailabilityOfSpecificProduct(show, take);
-                        showOptions(show);
-                    case 12:
-                        readProductCategoryDescription(show, take);
-                        showOptions(show);
-                    case 0:
-                        show.text("\nSee you next time!\n");
-                        noInput = false;
-                    default:
-                        show.text("\nWrong input!\n");
-                }
-            } catch (InputMismatchException e) {
-                show.text("\nType only one number!\n");
+            ShopController take = new ShopController();
+            Integer option = take.inputInteger();
+            if (option == 1) {
+                createNewProduct(show, take);
+                showOptions(show);
+            } else if (option == 2 ){
+                addProductsToBasket(show, take);
+                showOptions(show);
+            } else if (option == 3){
+                seeAllProductsInBasket(show);
+                showOptions(show);
+            } else if (option == 4){
+                removeProductFromBasket(show, take);
+                showOptions(show);
+            } else if (option == 5){
+                changeSupplierForSpecificProduct(show, take);
+                showOptions(show);
+            } else if (option == 6){
+                ListOfAvailableProducts(show, take);
+                showOptions(show);
+            } else if (option == 7){
+                listOfProductsFromSpecificSupplier(show, take);
+                showOptions(show);
+            } else if (option == 8){
+                listOfProductsFromSpecificProductCategory(show, take);
+                showOptions(show);
+            } else if (option == 9){
+                createNewSupplier(show, take);
+                showOptions(show);
+            } else if (option == 10){
+                createNewProductCategoryOrNewFeaturedProductCategory(show, take);
+                showOptions(show);
+            } else if (option == 11){
+                checkAvailabilityOfSpecificProduct(show, take);
+                showOptions(show);
+            } else if (option == 12){
+                readProductCategoryDescription(show, take);
+                showOptions(show);
+            } else if (option == 0) {
+                show.text("\nSee you next time!\n");
+                noInput = false;
+                exitProgram();
+            } else {
+                show.text("\nWrong input!\n");
             }
-
         }
     }
+
+    private static void exitProgram() {
+        System.exit(0);
+    }
+
     private static void createProductAndCategory(ShopView show, ShopController take){
         show.text("Type product name");
         String name = take.inputText();
@@ -295,8 +290,8 @@ public class Main {
     }
 
     private static void removeProductFromBasket(ShopView show, ShopController take) {
-        show.text("\nRemove product from basket:\n");
         if (Basket.productList.size() > 0){
+            show.text("\nRemove product from basket:\n");
             Basket.showProductsInBasket(show);
             show.text("Choose id of product to remove: ");
             Boolean isId = false;
@@ -309,7 +304,8 @@ public class Main {
                     show.text("Wrong id number!");
                 }
             }
-
+        }else {
+            show.text("No products in basket");
         }
     }
 
@@ -336,6 +332,8 @@ public class Main {
                 }
             }
 
+        }else{
+            show.text("No products in shop!");
         }
     }
 
@@ -403,6 +401,47 @@ public class Main {
     }
 
     private static void createNewProductCategoryOrNewFeaturedProductCategory(ShopView show, ShopController take) {
+        show.text("Do you want to create featured or normal category?\n" +
+                "Featured type => f\n" +
+                "Normal type => n\n");
+        String featuredOrNormal = take.inputString().toLowerCase();
+        if (featuredOrNormal.equals("n")) {
+            createNormalCategory(show, take);
+
+        } else if (featuredOrNormal.equals("f")) {
+            createFeaturedCategory(show, take);
+        }
+    }
+
+    private static void createFeaturedCategory(ShopView show, ShopController take) {
+        show.text("\nYOU CREATES NORMAL CATEGORY");
+        show.text("\nType featured category name");
+        String featuredCategoryName = take.inputText();
+        show.text("\nType featured category department");
+        String featuredCategoryDepartment = take.inputText();
+        show.text("\nType featured category description");
+        String featuredCategoryDescription = take.inputText();
+        show.text("\nType start date (DD/MM/YYYY)");
+        Date startDate = take.inputDate();
+        show.text("\nType end date (DD/MM/YYYY)");
+        Date endDate = take.inputDate();
+        FeaturedProductCategory category = new FeaturedProductCategory(featuredCategoryName, featuredCategoryDepartment,
+                featuredCategoryDescription, startDate, endDate);
+        FeaturedProductCategory.addCategoryToList(category);
+        show.text("\n Featured category has been created.");
+    }
+
+    private static void createNormalCategory(ShopView show, ShopController take) {
+        show.text("\nYOU CREATES NORMAL CATEGORY");
+        show.text("\nEnter category name: ");
+        String categoryName = take.inputText();
+        show.text("\nEnter category department: ");
+        String categoryDepartment = take.inputText();
+        show.text("\nEnter category description: ");
+        String categoryDescription = take.inputText();
+        ProductCategory category = new ProductCategory(categoryName, categoryDepartment, categoryDescription);
+        ProductCategory.addCategoryToList(category);
+        show.text("\n Normal category has been created.");
     }
 
     private static void checkAvailabilityOfSpecificProduct(ShopView show, ShopController take) {
@@ -413,7 +452,7 @@ public class Main {
                 for (Product product: Product.productList) {
                     if (productName.equals(product.getName())) {
                         show.text("Product " + productName + " is available.");
-                    } else if (iteration == Product.productList.size()-1) {
+                    } else if (!productName.equals(product.getName()) && iteration == Product.productList.size()-1) {
                         show.text("Product " + productName + " is unavailable.");
                     }
                     iteration++;

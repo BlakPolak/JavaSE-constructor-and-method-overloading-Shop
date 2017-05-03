@@ -36,6 +36,7 @@ public class ShopView {
         System.out.println(ANSI_PURPLE + "12 => Read product category description"+ ANSI_RESET);
         System.out.println(ANSI_PURPLE + "0 => Exit shop\n"+ ANSI_RESET);
     }
+
     public void text(String text){
         System.out.println(text);
     }

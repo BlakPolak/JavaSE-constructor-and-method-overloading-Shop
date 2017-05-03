@@ -14,7 +14,7 @@ public class ShopController {
         String word = null;
         while (!isWord) {
             try {
-                Scanner reader = new Scanner(System.in); // Pomyslec czy nie da się wyciągnąć Scannera do atrybutów klasy
+                Scanner reader = new Scanner(System.in);
                 word = reader.next().trim();
                 return word;
             } catch (InputMismatchException ime) {
@@ -29,7 +29,7 @@ public class ShopController {
         String word = null;
         while (!isWord) {
             try {
-                Scanner reader = new Scanner(System.in); // Pomyslec czy nie da się wyciągnąć Scannera do atrybutów klasy
+                Scanner reader = new Scanner(System.in);
                 word = reader.nextLine().trim();
                 isWord = true;
             } catch (InputMismatchException ime) {
@@ -83,7 +83,6 @@ public class ShopController {
             } catch (ParseException e) {
                 System.out.println("Wrong date format! Should be => dd/MM/yyyy");
             }
-
         }
         return date;
     }
