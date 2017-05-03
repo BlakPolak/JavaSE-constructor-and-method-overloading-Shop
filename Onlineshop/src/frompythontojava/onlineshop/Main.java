@@ -265,7 +265,7 @@ public class Main {
             show.text("\nChoose number of product you want to add to basket\n");
             Integer id = take.inputInteger();
             Product productToBasket = Product.getProductById(id);
-            Basket.addProduct(productToBasket);
+            Basket.addProductToBasket(productToBasket);
             show.text(productToBasket.getName() + " added to basket!\n");
 
         } else {
@@ -279,6 +279,14 @@ public class Main {
     }
 
     private static void removeProductFromBasket(ShopView show, ShopController take) {
+        show.text("\nRemove product from basket:\n");
+        if (Basket.productList.size() > 0){
+            Basket.showProductsInBasket(show);
+            show.text("Choose id of product to remove: ");
+            Integer idToRemove= take.inputInteger();
+            Basket.removeProductFromBasket(idToRemove, show);
+
+        }
     }
 
     private static void changeSupplierForSpecificProduct(ShopView show, ShopController take) {

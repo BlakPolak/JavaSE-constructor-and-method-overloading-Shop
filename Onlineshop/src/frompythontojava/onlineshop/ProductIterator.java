@@ -25,4 +25,5 @@ public class ProductIterator implements Iterator {
     public Object next(ArrayList list) {
         return list.get(index++);
     }
+
 }
