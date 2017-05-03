@@ -52,9 +52,6 @@ public class ProductCategory  {
         this.description = description;
     }
 
-    public void createCategory(ProductCategory category) {
-        categories.add(category);
-    }
 
 
     public void addProductToCategory(Product product) {
@@ -76,7 +73,7 @@ public class ProductCategory  {
     }
 
 
-    public ProductCategory getProductCategoryById(Integer id) {
+    public static ProductCategory getProductCategoryById(Integer id) {
         Iterator productIterator = new ProductIterator();
         Iterator iterator = productIterator.getIterator();
         while(iterator.hasNext(categories)) {
@@ -100,6 +97,19 @@ public class ProductCategory  {
         return false;
     }
 
+    public static void getAllCategories(ShopView show) {
+        if (categories.size() > 0) {
+            for (int i = 0; i < categories.size(); i++) {
+                show.text("Category id: " + categories.get(i).getCategoryId() + " Category name: "
+                        + categories.get(i).getCategoryName() + "\n");
+            }
+        }
+    }
+
+    public static void getProductsFromCategory(ProductCategory productCategory, ShopView show) {
+        for (int i = 0; i < productCategory.productList.size(); i++)
+            show.text("Product name: " + productCategory.productList.get(i).getName());
+    }
 
     public String toString() {
         return String.format("id: %1$d," + "name: %2$s, " + "department: %3$s, " + "description: %4$s",

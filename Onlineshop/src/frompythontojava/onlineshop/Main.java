@@ -339,6 +339,17 @@ public class Main {
     }
 
     private static void listOfProductsFromSpecificProductCategory(ShopView show, ShopController take) {
+        if (ProductCategory.categories.size()> 0) {
+            show.text("Categories: \n");
+            ProductCategory.getAllCategories(show);
+            show.text("Choose id of category to list product from: \n");
+            Integer categoryId = take.inputInteger();
+            ProductCategory category = ProductCategory.getProductCategoryById(categoryId);
+            show.text("Products from category " + category.getCategoryName() + ":\n");
+            ProductCategory.getProductsFromCategory(category, show);
+        } else {
+            show.text("\nThere are no categories\n");
+        }
     }
 
     private static void createNewSupplier(ShopView show, ShopController take) {
