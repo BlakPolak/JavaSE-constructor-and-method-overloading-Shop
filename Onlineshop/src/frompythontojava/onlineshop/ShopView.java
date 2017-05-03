@@ -22,7 +22,7 @@ public class ShopView {
     }
 
     public void options(){
-        System.out.println(ANSI_PURPLE + "1 => Create new product" + ANSI_RESET);
+        System.out.println(ANSI_PURPLE + "\n1 => Create new product" + ANSI_RESET);
         System.out.println(ANSI_PURPLE + "2 => Add some products to the basket" + ANSI_RESET);
         System.out.println(ANSI_PURPLE + "3 => See all products in your basket"+ ANSI_RESET);
         System.out.println(ANSI_PURPLE + "4 => Remove product from basket"+ ANSI_RESET);
@@ -34,6 +34,7 @@ public class ShopView {
         System.out.println(ANSI_PURPLE + "10 => Create new product category or new featured product category"+ ANSI_RESET);
         System.out.println(ANSI_PURPLE + "11 => Check availability of specific product"+ ANSI_RESET);
         System.out.println(ANSI_PURPLE + "12 => Read product category description"+ ANSI_RESET);
+        System.out.println(ANSI_PURPLE + "0 => Exit shop\n"+ ANSI_RESET);
     }
     public void text(String text){
         System.out.println(text);

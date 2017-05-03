@@ -1,22 +1,25 @@
 package frompythontojava.onlineshop;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Supplier {
     private Integer id;
     private String name;
     private String description;
-    private ArrayList<Supplier> suppliersList = new ArrayList<>();
+    public static ArrayList<Supplier> suppliersList = new ArrayList<>();
     private ArrayList<Product> productsList = new ArrayList<>();
+    private static ArrayList<Product> productsWithSuppliers = new ArrayList<>();
     private static AtomicInteger number = new AtomicInteger(0);
 
     public Supplier() {
     }
-    public Supplier(String name, String description) {
+    public Supplier(String name, String description, ArrayList productsList) {
         this.id = number.getAndIncrement();
         this.name = name;
         this.description = description;
+        this.productsList = productsList;
     }
 
     public Integer getId() {
@@ -38,23 +41,44 @@ public class Supplier {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Supplier getSupplierById(int id) {
+    public static Supplier getSupplierById(Integer id) {
         if (suppliersList.size() > 0) {
             for (int i = 0; i < suppliersList.size(); i++)
-                if (suppliersList.get(i).getId() == id) {
+                if (Objects.equals(suppliersList.get(i).getId(), id)) {
                     return suppliersList.get(i);
                 }
         }
         return null;
     }
-    public void createNewSupplier(Supplier supplier) {
+    public static void createNewSupplier(Supplier supplier) {
         suppliersList.add(supplier);
+    }
+    public void addProductToSupplier(Product product) {
+        this.productsList.add(product);
+        Supplier.productsWithSuppliers.add(product);
+    }
+
+    public static void listSuppliers(ShopView show) {
+        for (int i = 0; i < suppliersList.size(); i++) {
+            show.text("Supplier Id: " +suppliersList.get(i).getId() + " Supplier Name: " + suppliersList.get(i).getName());
+        }
     }
 
     public String toString() {
         return String.format("id: %1$d," + "name: %2$s, " + "description: %3$s",
                 this.id, this.name, this.description);
     }
+
+    public void listProductsFromSupplier(ShopView show) {
+        if (productsList.size() > 0) {
+            for (int i = 0; i < productsList.size(); i++) {
+                show.text("Product Id: " +productsList.get(i).getId() + " ProductName: " + productsList.get(i).getName() + "\n");
+            }
+        } else {
+            show.text("There are no products from this suppliers.");
+        }
+    }
+
 }
 
 

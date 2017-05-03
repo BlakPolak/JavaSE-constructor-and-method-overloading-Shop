@@ -1,6 +1,7 @@
 package frompythontojava.onlineshop;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -96,8 +97,10 @@ public class Main {
         String supplierName = take.inputText();
         show.text("Type supplier description");
         String supplierDescription = take.inputText();
-        Supplier supplier = new Supplier(supplierName, supplierDescription);
+        Supplier supplier = new Supplier(supplierName, supplierDescription,  new ArrayList());
         Product product = new Product(name, defaultPrice, category, supplier);
+        Supplier.createNewSupplier(supplier);
+        supplier.addProductToSupplier(product);
         category.addProductToCategory(product);
         Product.addToList(product);
         show.text("Product " + product.getName() +". Price " + product.getDefaultPrice()+". Category " + product.getCategoryName() + ". Added to list.\n");
@@ -113,7 +116,7 @@ public class Main {
         String supplierName = take.inputText();
         show.text("Type supplier description");
         String supplierDescription = take.inputText();
-        Supplier supplier = new Supplier(supplierName, supplierDescription);
+        Supplier supplier = new Supplier(supplierName, supplierDescription, new ArrayList());
         show.text("\nProduct existing categories: \n");
         ProductCategory.getProductCategories();
         boolean isNoId = true;
@@ -126,6 +129,8 @@ public class Main {
                         Product product = new Product(name, defaultPrice, ProductCategory.categories.get(i), supplier);
                         ProductCategory.categories.get(i).addProductToCategory(product);
                         Product.addToList(product);
+                        Supplier.createNewSupplier(supplier);
+                        supplier.addProductToSupplier(product);
                         show.text("Product " + product.getName() + " added to category =>"
                                 + ProductCategory.categories.get(i).getCategoryName() + "\n");
                         isNoId = false;
@@ -158,12 +163,14 @@ public class Main {
         String supplierName = take.inputText();
         show.text("Type supplier description");
         String supplierDescription = take.inputText();
-        Supplier supplier = new Supplier(supplierName, supplierDescription);
+        Supplier supplier = new Supplier(supplierName, supplierDescription, new ArrayList());
         FeaturedProductCategory category = new FeaturedProductCategory(featuredCategoryName, featuredCategoryDepartment, featuredCategoryDescription, startDate, endDate);
         Product product = new Product(name, defaultPrice, category, supplier);
         FeaturedProductCategory.addCategoryToList(category);
         category.addProductToCategory(product);
         Product.addToList(product);
+        Supplier.createNewSupplier(supplier);
+        supplier.addProductToSupplier(product);
         show.text("Product " + product.getName() +". Price " + product.getDefaultPrice()+". Featured category " + product.getCategoryName() + ". Added to list.\n");
     }
 
@@ -177,7 +184,7 @@ public class Main {
         String supplierName = take.inputText();
         show.text("Type supplier description");
         String supplierDescription = take.inputText();
-        Supplier supplier = new Supplier(supplierName, supplierDescription);
+        Supplier supplier = new Supplier(supplierName, supplierDescription, new ArrayList());
         show.text("\nProduct existing categories: \n");
         FeaturedProductCategory.getFeaturedProductCategories();
         boolean isNoId = true;
@@ -190,6 +197,8 @@ public class Main {
                         Product product = new Product(name, defaultPrice, ProductCategory.categories.get(i), supplier);
                         ProductCategory.categories.get(i).addProductToCategory(product);
                         Product.addToList(product);
+                        Supplier.createNewSupplier(supplier);
+                        supplier.addProductToSupplier(product);
                         show.text("Product " + product.getName() + " added to featured category =>"
                                 + ProductCategory.categories.get(i).getCategoryName() + "\n");
                         isNoId = false;
@@ -308,9 +317,25 @@ public class Main {
     }
 
     private static void ListOfAvailableProducts(ShopView show, ShopController take) {
+        if (Product.productList.size()>0){
+            show.text("\nAll available products in shop\n");
+            Product.getProducts();
+        }else{
+            show.text("\nThere are no available products in the shop\n");
+        }
+
     }
 
     private static void listOfProductsFromSpecificSupplier(ShopView show, ShopController take) {
+        if (Supplier.suppliersList.size() > 0) {
+            show.text("Choose supplier id: ");
+            Supplier.listSuppliers(show);
+            Integer supplierId = take.inputInteger();
+            show.text("\nProducts from supplier: \n");
+            Supplier.getSupplierById(supplierId).listProductsFromSupplier(show);
+        } else {
+            show.text("\nThere are no suppliers \n");
+        }
     }
 
     private static void listOfProductsFromSpecificProductCategory(ShopView show, ShopController take) {
