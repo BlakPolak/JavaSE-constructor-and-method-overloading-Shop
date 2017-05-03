@@ -8,7 +8,7 @@ public class Supplier {
     private String name;
     private String description;
     private ArrayList<Supplier> suppliersList = new ArrayList<>();
-    private  ArrayList<Product> productsList = new ArrayList<>();
+    private ArrayList<Product> productsList = new ArrayList<>();
     private static AtomicInteger number = new AtomicInteger(0);
 
     public Supplier() {

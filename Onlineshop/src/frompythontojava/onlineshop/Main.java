@@ -290,6 +290,21 @@ public class Main {
     }
 
     private static void changeSupplierForSpecificProduct(ShopView show, ShopController take) {
+        if (Product.productList.size()>0){
+            show.text("\nAll products in shop\n");
+            Product.getProducts();
+            show.text("\nChoose id number of product to edit it's supplier\n");
+            Integer idToChangeSupplier = take.inputInteger();
+            Product productToChangeSupplier = Product.getProductById(idToChangeSupplier);
+            show.text("\nProduct to change: Name: " +productToChangeSupplier.getName() + " Supplier: " +productToChangeSupplier.getSupplier().getName() + "\n");
+            show.text("Type new supplier name\n");
+            String newName = take.inputText();
+            productToChangeSupplier.getSupplier().setName(newName);
+            show.text("Type new supplier description\n");
+            String newDescription = take.inputText();
+            productToChangeSupplier.getSupplier().setDescription(newDescription);
+
+        }
     }
 
     private static void ListOfAvailableProducts(ShopView show, ShopController take) {

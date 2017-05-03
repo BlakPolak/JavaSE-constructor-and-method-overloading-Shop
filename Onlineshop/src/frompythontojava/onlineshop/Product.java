@@ -63,23 +63,10 @@ public class Product {
         }
         return null;
     }
-    //    @Override
-//    public String toString() {
-//        final StringBuilder sb = new StringBuilder();
-//        for (Field field : this.getClass().getDeclaredFields()) {
-//            field.setAccessible(true);
-//            Object value = null;
-//            try {
-//                value = field.get(this);
-//                if (value != null) {
-//                    sb.append(field.getName() + ":" + value + ",");
-//                }
-//            } catch (IllegalAccessException e) {
-//
-//            }
-//        }
-//        return sb.toString();
-//    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
     public static ArrayList getProducts(){
         if (productList.size() > 0) {
@@ -97,13 +84,26 @@ public class Product {
         return productList;
     }
 
-    public static ArrayList getAllProductsBy(ProductCategory productCategory){
-        return null; //TODO:Implementation
-    }
-
-    public static ArrayList getAllProductsBy(Supplier productSupplier){
-        return null; //TODO:Implementation
-    }
+//    public static ArrayList getAllProductsBy(ProductCategory productCategory){
+//        return null; //TODO:Implementation
+//    }
+//
+//    public static ArrayList getAllProductsBy(Supplier productSupplier){
+//        if (productList.size() > 0) {
+//            Iterator productIterator = new ProductIterator();
+//            Iterator iterator = productIterator.getIterator();
+//            while(iterator.hasNext(productList)) {
+//                Product product = (Product) iterator.next(productList);
+//                System.out.println("Product idL" + product.getId() + ". Supplier name:"
+//                        + product.getSupplier().getName() + " price: "
+//                        + product.getDefaultPrice());
+//            }
+//        } else {
+//            System.out.println("There are no product in the shop");
+//        }
+//        return productList;
+//    }
+//    }
 
     public String toString() {
         return String.format("id: %1$d, " +
