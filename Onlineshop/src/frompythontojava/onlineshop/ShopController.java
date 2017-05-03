@@ -55,8 +55,17 @@ public class ShopController {
     }
 
     public static Integer inputInteger(){
-        Scanner reader = new Scanner(System.in);
-        Integer number = reader.nextInt();
+        boolean isInteger = false;
+        Integer number = null;
+        while (!isInteger) {
+            try {
+                Scanner reader = new Scanner(System.in);
+                number = reader.nextInt();
+                isInteger = true;
+            } catch (InputMismatchException ime) {
+                System.out.println("Wrong input! Should be number.");
+            }
+        }
         return number;
     }
 

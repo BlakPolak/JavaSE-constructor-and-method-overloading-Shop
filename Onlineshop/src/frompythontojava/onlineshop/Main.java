@@ -272,11 +272,18 @@ public class Main {
             show.text("\nAdd product to Basket\n");
             Product.getProducts();
             show.text("\nChoose number of product you want to add to basket\n");
-            Integer id = take.inputInteger();
-            Product productToBasket = Product.getProductById(id);
-            Basket.addProductToBasket(productToBasket);
-            show.text(productToBasket.getName() + " added to basket!\n");
-
+            Boolean isId = false;
+            while (!isId){
+                Integer id = take.inputInteger();
+                if (id <= Product.productList.size()-1 && id >= 0){
+                    Product productToBasket = Product.getProductById(id);
+                    Basket.addProductToBasket(productToBasket);
+                    show.text(productToBasket.getName() + " added to basket!\n");
+                    isId = true;
+                }else{
+                    show.text("Wrong id number!");
+                }
+            }
         } else {
             show.text("\nThere are no products in the shop\n");
         }
@@ -292,8 +299,16 @@ public class Main {
         if (Basket.productList.size() > 0){
             Basket.showProductsInBasket(show);
             show.text("Choose id of product to remove: ");
-            Integer idToRemove= take.inputInteger();
-            Basket.removeProductFromBasket(idToRemove, show);
+            Boolean isId = false;
+            while (!isId){
+                Integer idToRemove= take.inputInteger();
+                if (idToRemove <= Supplier.suppliersList.size()-1 && idToRemove >= 0){
+                    Basket.removeProductFromBasket(idToRemove, show);
+                    isId = true;
+                }else{
+                    show.text("Wrong id number!");
+                }
+            }
 
         }
     }
@@ -303,15 +318,23 @@ public class Main {
             show.text("\nAll products in shop\n");
             Product.getProducts();
             show.text("\nChoose id number of product to edit it's supplier\n");
-            Integer idToChangeSupplier = take.inputInteger();
-            Product productToChangeSupplier = Product.getProductById(idToChangeSupplier);
-            show.text("\nProduct to change: Name: " +productToChangeSupplier.getName() + " Supplier: " +productToChangeSupplier.getSupplier().getName() + "\n");
-            show.text("Type new supplier name\n");
-            String newName = take.inputText();
-            productToChangeSupplier.getSupplier().setName(newName);
-            show.text("Type new supplier description\n");
-            String newDescription = take.inputText();
-            productToChangeSupplier.getSupplier().setDescription(newDescription);
+            Boolean isId = false;
+            while (!isId){
+                Integer idToChangeSupplier = take.inputInteger();
+                if (idToChangeSupplier <= Product.productList.size()-1 && idToChangeSupplier >= 0){
+                    Product productToChangeSupplier = Product.getProductById(idToChangeSupplier);
+                    show.text("\nProduct to change: Name: " +productToChangeSupplier.getName() + " Supplier: " +productToChangeSupplier.getSupplier().getName() + "\n");
+                    show.text("Type new supplier name\n");
+                    String newName = take.inputText();
+                    productToChangeSupplier.getSupplier().setName(newName);
+                    show.text("Type new supplier description\n");
+                    String newDescription = take.inputText();
+                    productToChangeSupplier.getSupplier().setDescription(newDescription);
+                    isId = true;
+                }else{
+                    show.text("Wrong id number!");
+                }
+            }
 
         }
     }
@@ -330,9 +353,17 @@ public class Main {
         if (Supplier.suppliersList.size() > 0) {
             show.text("Choose supplier id: ");
             Supplier.listSuppliers(show);
-            Integer supplierId = take.inputInteger();
-            show.text("\nProducts from supplier: \n");
-            Supplier.getSupplierById(supplierId).listProductsFromSupplier(show);
+            Boolean isId = false;
+            while (!isId){
+                Integer supplierId = take.inputInteger();
+                if (supplierId <= Supplier.suppliersList.size()-1 && supplierId >= 0){
+                    show.text("\nProducts from supplier: \n");
+                    Supplier.getSupplierById(supplierId).listProductsFromSupplier(show);
+                    isId = true;
+                }else{
+                    show.text("Wrong id number!");
+                }
+            }
         } else {
             show.text("\nThere are no suppliers \n");
         }
@@ -343,24 +374,68 @@ public class Main {
             show.text("Categories: \n");
             ProductCategory.getAllCategories(show);
             show.text("Choose id of category to list product from: \n");
-            Integer categoryId = take.inputInteger();
-            ProductCategory category = ProductCategory.getProductCategoryById(categoryId);
-            show.text("Products from category " + category.getCategoryName() + ":\n");
-            ProductCategory.getProductsFromCategory(category, show);
+            Boolean isId = false;
+            while (!isId){
+                Integer categoryId = take.inputInteger();
+                if (categoryId <= ProductCategory.categories.size()-1 && categoryId >= 0){
+                    ProductCategory category = ProductCategory.getProductCategoryById(categoryId);
+                    show.text("\nProducts from category " + category.getCategoryName() + ":\n");
+                    ProductCategory.getProductsFromCategory(category, show);
+                    isId = true;
+                } else {
+                    show.text("Wrong id number!");
+                }
+            }
         } else {
             show.text("\nThere are no categories\n");
         }
     }
 
     private static void createNewSupplier(ShopView show, ShopController take) {
+        show.text("Create new supplier\n");
+        show.text("Enter supplier name: \n");
+        String name = take.inputText();
+        show.text("Enter supplier description: ");
+        String description = take.inputText();
+        Supplier supplier = new Supplier(name, description, new ArrayList());
+        Supplier.createNewSupplier(supplier);
+        show.text("New supplier " + supplier.getName() + " has been created. \n");
     }
 
     private static void createNewProductCategoryOrNewFeaturedProductCategory(ShopView show, ShopController take) {
     }
 
     private static void checkAvailabilityOfSpecificProduct(ShopView show, ShopController take) {
+        if (Product.productList.size() > 0) {
+            show.text("Enter product name that you want to find: ");
+            String productName = take.inputText();
+            Integer iteration = 0;
+                for (Product product: Product.productList) {
+                    if (productName.equals(product.getName())) {
+                        show.text("Product " + productName + " is available.");
+                    } else if (iteration == Product.productList.size()-1) {
+                        show.text("Product " + productName + " is unavailable.");
+                    }
+                    iteration++;
+                }
+        } else {
+            show.text("There are no products in the shop.");
+        }
     }
 
     private static void readProductCategoryDescription(ShopView show, ShopController take) {
+        if (ProductCategory.categories.size() > 0) {
+            ProductCategory.getAllCategories(show);
+
+            show.text("Choose id of category to list product from: \n");
+            Integer categoryId = take.inputInteger();
+            for (int i = 0; i < ProductCategory.categories.size(); i++) {
+                if (categoryId == ProductCategory.categories.get(i).getCategoryId()) {
+                    show.text("Description: " + ProductCategory.categories.get(i).getCategoryDescription());
+                }
+            }
+        } else {
+            show.text("There are no categories.");
+        }
     }
 }

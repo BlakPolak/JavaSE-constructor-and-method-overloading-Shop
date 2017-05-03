@@ -38,7 +38,7 @@ public class Basket {
                     productList.remove(product);
                 }
             }
-            show.text(removedProduct.getId() + ". Name: " + removedProduct.getName() + "removed from basket\n");
+            show.text("Product " + removedProduct.getName() + " removed from basket\n");
         } else {
             show.text("There are no products in your basket \n");
         }
